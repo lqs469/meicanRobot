@@ -6,7 +6,8 @@
   "scripts": {
     "start": "NODE_ENV=prod babel-node index.js",
     "dev": "NODE_ENV=dev babel-node index.js",
-    "test": ""
+    "test": "echo 'no'",
+    "db": "babel-node db.js"
   },
   "author": "lqs469",
   "license": "MIT",
@@ -18,6 +19,7 @@
   },
   "dependencies": {
     "moment": "^2.18.1",
+    "mysql": "^2.14.1",
     "node-fetch": "^1.7.2"
   }
 }
