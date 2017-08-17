@@ -2,6 +2,7 @@ import fs from 'fs'
 import pool from './db/pool'
 import run from './utils/runGenerators'
 import getCalendarItems from './src/getCalendarItems'
+import getRest from './src/getRest'
 import moment from 'moment'
 import _ from './config'
 
@@ -15,28 +16,80 @@ const actions = () => pool.connect(__ACTION_SQL__)
 const insert = (__INSERT_SQL__) => pool.connect(__INSERT_SQL__)
 
 const seekArr = []
+const calendarItems = []
+
+function getUniqueId () {
+  return new Promise((resolve, reject) => {
+    getCalendarItems().then(data => {
+      data.dateList[0].calendarItemList.forEach(c => {
+        const targetTime = moment(c.targetTime).format('+HH:mm')
+        calendarItems.push({
+          uniqueId: c.userTab.uniqueId,
+          targetTime
+        })
+      })
+      resolve()
+    }).catch((err) => {
+      reject(err)
+    })
+  })
+}
 
 
 const getData = () => {
   const getArr = []
   for (let i = 0; i < _.DATE_COUNTER; i++) {
-    getArr.push(getCalendarItems(moment().subtract(i, 'days').format('YYYY-MM-DD')))
+    const date = moment().subtract(i, 'days').format('YYYY-MM-DD')
+    calendarItems.forEach(c => {
+      getArr.push({
+        uniqueId: c.uniqueId,
+        timestamp: `${date}${c.targetTime}`
+      })
+    })
   }
 
-  return Promise.all(getArr).then((data) => {
-    console.log(data)
-    seekArr.push(insert('CALL addRest("test",2,3,4,5,6,7,8)'))
-    // return
-  }).catch((err) => console.log(err))
+  function pushSql (d) {
+    if (d.restaurantList.length > 0) {
+      d.restaurantList.forEach(r => {
+        const SQL =
+          `use meican;CALL addRest('${r.name}',${r.latitude},${r.longitude},${r.dishLimit},${r.availableDishCount},${r.rating},'${r.uniqueId}','${d.targetTime}')`
+        console.log(SQL)
+        insert(SQL)
+      })
+    }
+    this.count++
+  }
+
+  function fetchRest(element) {
+    return getRest(element.uniqueId, element.timestamp)
+  }
+
+  function run (resolve) {
+    let p = Promise.resolve()
+    let time = { count: 0 }
+
+    getArr.forEach((element) => {
+      p = p.then(() => {
+        if (time.count === getArr.length - 1) {
+          resolve()
+        }
+        return fetchRest(element)
+      }).then(pushSql.bind(time))
+    })
+  }
+  return new Promise((resolve) => {
+    run(resolve)
+  })
 }
 
-const save = () => Promise.all(seekArr).then(data => data)
+const saved = () => Promise.resolve().then(() => console.log('[saved]'))
 
 function* gen () {
   yield creator()
   yield actions()
+  yield getUniqueId()
   yield getData()
-  yield save()
+  yield saved()
 }
 
 run(gen)

@@ -3,16 +3,16 @@
 CREATE PROCEDURE addRest (
   IN name       VARCHAR(100),
   IN latitude   FLOAT,
-  IN longtitude FLOAT,
+  IN longitude  FLOAT,
   IN dishLimit  INT,
   IN availeDish INT,
   IN rating     INT,
-  IN status     INT,
-  IN uniqueId   INT
+  IN uniqueId   VARCHAR(10),
+  IN targetTime TIMESTAMP
 )
 BEGIN
-  insert into rest (name,latitude,longtitude,dishLimit,availeDish,rating,status,uniqueId)
-    values (name,latitude,longtitude,dishLimit,availeDish,rating,status,uniqueId);
+  insert into rest (name,latitude,longitude,dishLimit,availeDish,rating,uniqueId,targetTime)
+    values (name,latitude,longitude,dishLimit,availeDish,rating,uniqueId,targetTime);
 END;
 
 CREATE PROCEDURE rmRestByName (

@@ -3,14 +3,16 @@ import _ from '../config'
 import get from '../utils/fetch'
 
 
-export default function getCalendarItems (date = moment().format('YYYY-MM-DD')) {
+export default function getRest (uniqueId, time = moment().format('YYYY-MM-DD')) {
   return new Promise((resolve, reject) => {
-    get(_.to(`preorder/api/v2.1/calendarItems/list?beginDate=${date}&endDate=${date}`), {
+    const url = `preorder/api/v2.1/restaurants/list?tabUniqueId=${uniqueId}&targetTime=${time}`
+    get(_.to(url), {
       headers: { 'cookie': _.COOKIE }
     }).then(body => {
       resolve(body)
     }).catch((err) => {
-      reject(err)
+      reject()
+      console.log('getRest', err)
     })
   })
 }

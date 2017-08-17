@@ -12,7 +12,7 @@ const pool = mysql.createPool({
 function end () {
   pool.end(function (err) {
     if (err) throw err
-    console.log('close pool')
+    console.log('[close pool]')
   })
 }
 
