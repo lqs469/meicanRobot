@@ -8,7 +8,6 @@ const pool = mysql.createPool({
   multipleStatements : __DB__.multipleStatements
 })
 
-
 function end () {
   pool.end(function (err) {
     if (err) throw err

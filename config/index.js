@@ -12,7 +12,7 @@ const LQS469_ROBOT = 'https://oapi.dingtalk.com/robot/send?access_token=70d88eae
 const JARVIS       = 'https://oapi.dingtalk.com/robot/send?access_token=d85a89a9f348e0eeef4e949db950039f0734c1e332fc34e79dfdebb5cb2b4721'
 
 // analysis
-const DATE_COUNTER = 365
+const DATE_COUNTER = 10 // 365
 
 const config = {
   TIME,

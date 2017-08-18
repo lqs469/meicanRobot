@@ -17,6 +17,7 @@
     }
   },
   globals: {
+    "AMap": true,
     "document": true
   },
   "plugins": [

@@ -15,7 +15,6 @@ const actions = () => pool.connect(__ACTION_SQL__)
 
 const insert = (__INSERT_SQL__) => pool.connect(__INSERT_SQL__)
 
-const seekArr = []
 const calendarItems = []
 
 function getUniqueId () {
@@ -60,7 +59,7 @@ const getData = () => {
     this.count++
   }
 
-  function fetchRest(element) {
+  function fetchRest (element) {
     return getRest(element.uniqueId, element.timestamp)
   }
 
@@ -84,7 +83,7 @@ const getData = () => {
 
 const saved = () => Promise.resolve().then(() => console.log('[saved]'))
 
-function* gen () {
+function *gen () {
   yield creator()
   yield actions()
   yield getUniqueId()
