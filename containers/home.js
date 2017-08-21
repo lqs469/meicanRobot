@@ -10,7 +10,6 @@ export default class Home extends Component {
     }
   }
 
-
   componentDidMount () {
     this.getData()
     this.map = new AMap.Map('mapContainer')
@@ -25,22 +24,27 @@ export default class Home extends Component {
       .then(data => {
         console.log('getData')
         data.data.forEach((data) => {
-          // this.addLayout(data.longitude, data.latitude, data.name)
+          console.log(data.longitude, data.latitude, data.name, data.availeDish, data.dishLimit)
+          this.addLayout(data.longitude, data.latitude, data.name, data.availeDish, data.dishLimit)
         })
-        this.addLayout(116.493, 39.979)
 
         // this.setState({ data })
       })
   }
 
-  addLayout (x, y, name) {
-    console.log(x, y)
-
+  addLayout (x, y, name, a, l) {
     const marker = new AMap.Marker({
-      position: new AMap.LngLat(x, y), // [x, y],
+      position: [x, y],
       map: this.map
     })
-    // marker.setMap(this.map)
+    const circle = new AMap.Circle({
+      center: [x, y],
+      radius: a / l * 100,
+      fillOpacity: a / l * 0.75,
+      strokeWeight: 0.1
+    })
+    circle.setMap(this.map)
+
     this.map.setFitView()
 
     marker.on('click', () => {

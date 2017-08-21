@@ -8,14 +8,6 @@
   "extends": [
     "react"
   ],
-  "parserOptions": {
-    "ecmaVersion": 8,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "modules": true,
-      "jsx": true,
-    }
-  },
   globals: {
     "AMap": true,
     "document": true
