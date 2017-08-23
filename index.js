@@ -20,7 +20,7 @@ function getDishData (title, status, id, time) {
   })
 }
 
-function doTip(checkOneTimeOneDay) {
+function doTip (checkOneTimeOneDay) {
   getMeiCanData().then(data => {
     Promise.all(data).then((data) => {
       let text = ''
@@ -28,7 +28,7 @@ function doTip(checkOneTimeOneDay) {
       data.forEach(o => {
         const key = Object.keys(o)[0]
         if (key.indexOf(_.TARGET_ADDR) > -1 && key.indexOf('AVAILABLE') >= 0) {
-          text += `##### **${key.replace(/[AVAILABLE|CLOSED|ORDER]|晚餐\d/g, '')}**
+          text += `\n##### **${key.replace(/[AVAILABLE|CLOSED|ORDER]|晚餐\d/g, '')}**
           店铺: ${o[key].map(t => ` ${t}`)}
           `
         }
