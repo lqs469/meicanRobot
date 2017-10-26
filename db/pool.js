@@ -2,10 +2,10 @@ import mysql from 'mysql'
 import { __DB__ } from '../config'
 
 const pool = mysql.createPool({
-  host               : __DB__.host,
-  user               : __DB__.user,
-  password           : __DB__.password,
-  multipleStatements : __DB__.multipleStatements
+  host: __DB__.host,
+  user: __DB__.user,
+  password: __DB__.password,
+  multipleStatements: __DB__.multipleStatements
 })
 
 function end () {

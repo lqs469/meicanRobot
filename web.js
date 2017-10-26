@@ -27,11 +27,14 @@ const devMiddleware = webpackDevMiddleware(compiler, {
 app.use(devMiddleware)
 
 app.get('/getAllData', function (req, res, next) {
-  pool.connect('use meican;SELECT * FROM rest;').then(data => {
-    res.send({ data: data[1] })
-  }).then(() => {
-    next()
-  })
+  pool
+    .connect('use meican;SELECT * FROM rest;')
+    .then(data => {
+      res.send({ data: data[1] })
+    })
+    .then(() => {
+      next()
+    })
 })
 
 app.listen(port, () => {

@@ -6,6 +6,7 @@ let today = process.env.NODE_ENV === 'prod' ?
 
 export default function checkOneTimeOneDay (text) {
   const now = moment().format('YYYY-MM-DD')
+
   if (text !== '' && today !== now) {
     console.log(text, now, today)
     today = now

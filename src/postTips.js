@@ -1,12 +1,12 @@
-import _ from '../config'
+import config from '../config'
 import post from '../utils/fetch'
 
 export default function postTips (text) {
   // 大群
   if (process.env.NODE_ENV === 'prod') {
-    postAction(_.JARVIS, text)
+    postAction(config.JARVIS, text)
   }
-  postAction(_.LQS469_ROBOT, text)
+  postAction(config.LQS469_ROBOT, text)
 }
 
 function postAction (url, text) {
