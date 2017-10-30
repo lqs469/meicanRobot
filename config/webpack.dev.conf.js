@@ -21,10 +21,10 @@ module.exports = {
     modules: [path.join(__dirname, '../node_modules')],
     extensions: ['.web.js', '.jsx', '.js', '.json'],
     alias: {
-      react: 'react/dist/react.min',
+      // react: 'react/dist/react.min',
       // redux: 'redux/dist/redux.min',
       // 'react-redux': 'react-redux/dist/react-redux.min',
-      'react-dom': 'react-dom/dist/react-dom.min',
+      // 'react-dom': 'react-dom/dist/react-dom.min',
       // 'react-router': 'react-router/umd/react-router.min',
       // echarts: 'echarts/dist/echarts.min',
       // moment: 'moment/min/moment.min',
@@ -102,5 +102,5 @@ module.exports = {
   ],
   devtool: '#source-map',
   bail: true,
-  cache: false,
+  cache: false
 }

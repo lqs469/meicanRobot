@@ -24,15 +24,20 @@ function doTip (checkOneTimeOneDay) {
   getMeiCanData().then(data => {
     Promise.all(data).then(data => {
       let text = ''
-      console.log(moment().format('YYYY-MM-DD HH:mm:ss'))
+      console.log('-------------------------------')
+      console.log('Now is ' + moment().format('YYYY-MM-DD HH:mm:ss'))
       console.log(data)
+      console.log('----------------')
 
       data.forEach(o => {
         const key = Object.keys(o)[0]
-        const now = moment().add(4, 'hours').format('HH:mm')
-        const endTime = key.split(' ')[2]
+        const now = moment().add(3, 'hours')
+        const endTime = moment(key.split(' ')[2], 'hhmm')
+        console.log('now + 4 hours = ' + now.format('HH:mm'), 'EndTime is ' + endTime.format('HH:mm'), 'isTime?=' +
+          endTime.isSame(now, 'minute'))
 
-        if (key.indexOf(config.TARGET_ADDR) > -1 && key.indexOf('AVAILABLE') >= 0 && now === endTime) {
+        if (key.indexOf(config.TARGET_ADDR) > -1 && key.indexOf('AVAILABLE') >= 0 && endTime.isSame(now, 'minute')) {
+          console.log('do tip')
           let rests = ''
 
           for (let i in o[key]) {
