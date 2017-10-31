@@ -8,7 +8,7 @@ module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
     index: [
-      path.resolve(__dirname, '../src/index')
+      path.resolve(__dirname, '../web/index')
     ]
   },
   output: {
@@ -19,20 +19,7 @@ module.exports = {
   },
   resolve: {
     modules: [path.join(__dirname, '../node_modules')],
-    extensions: ['.web.js', '.jsx', '.js', '.json'],
-    alias: {
-      // react: 'react/dist/react.min',
-      // redux: 'redux/dist/redux.min',
-      // 'react-redux': 'react-redux/dist/react-redux.min',
-      // 'react-dom': 'react-dom/dist/react-dom.min',
-      // 'react-router': 'react-router/umd/react-router.min',
-      // echarts: 'echarts/dist/echarts.min',
-      // moment: 'moment/min/moment.min',
-      // ramda: 'ramda/dist/ramda.min',
-      // 'antd-mobile': 'antd-mobile',
-      // 'redux-saga': 'redux-saga',
-      // lodash: 'lodash'
-    }
+    extensions: ['.web.js', '.jsx', '.js', '.json']
   },
   module: {
     noParse: /moment/,
@@ -84,7 +71,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/index.html',
+      template: 'web/index.html',
       chunks: ['index'],
       chunksSortMode: 'dependency',
       minify: false,
@@ -97,7 +84,7 @@ module.exports = {
       'process.env': {
         NODE_ENV: '"development"'
       },
-      VERSION: '"' + PACKAGE.version + '"'
+      'VERSION': '"' + PACKAGE.version + '"'
     })
   ],
   devtool: '#source-map',

@@ -33,7 +33,7 @@ function doTip (checkOneTimeOneDay) {
         const key = Object.keys(o)[0]
         const now = moment().add(3, 'hours')
         const endTime = moment(key.split(' ')[2], 'hhmm')
-        console.log('now + 4 hours = ' + now.format('HH:mm'), 'EndTime is ' + endTime.format('HH:mm'), 'isTime?=' +
+        console.log('now + 3 hours = ' + now.format('HH:mm'), 'EndTime is ' + endTime.format('HH:mm'), 'isTime?=' +
           endTime.isSame(now, 'minute'))
 
         if (key.indexOf(config.TARGET_ADDR) > -1 && key.indexOf('AVAILABLE') >= 0 && endTime.isSame(now, 'minute')) {

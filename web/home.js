@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import 'whatwg-fetch'
 import './home.less'
+import Store from './store'
 
 export default class Home extends Component {
   constructor (props) {
@@ -22,10 +23,11 @@ export default class Home extends Component {
   }
 
   getData () {
-    fetch('/getAllData').then(data => data.json()).then(data => {
-      console.log('getData')
-      this.renderMap(data.data)
-    })
+    fetch('/getAllData')
+      .then(data => data.json())
+      .then(data => {
+        this.renderMap(data.data)
+      })
   }
 
   renderMap (data) {
@@ -105,6 +107,13 @@ export default class Home extends Component {
   }
 
   render () {
-    return <div className='home' id='mapContainer' />
+    return (
+      <div className='bg'>
+        <div className='map' id='mapContainer' />
+        <div className='content'>
+          <Store />
+        </div>
+      </div>
+    )
   }
 }
