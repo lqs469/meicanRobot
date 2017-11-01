@@ -33,7 +33,7 @@ export default class Home extends Component {
         id: 'rank',
         Header: '订餐率',
         accessor: item => {
-          return (item.availeDish / item.dishLimit * 100).toFixed(3) + '%'
+          return ((item.dishLimit - item.availeDish) / item.dishLimit * 100).toFixed(3) + '%'
         }
       }
     ]
@@ -55,7 +55,9 @@ export default class Home extends Component {
   dateChart (data) {
     let dataByDate = {}
     data.forEach((item, i) => {
-      const date = moment(item.targetTime).format('MM-DD hh:mm')
+      const date = moment(item.targetTime)
+        .add(2, 'hours')
+        .format('MM-DD')
       if (dataByDate[date]) {
         dataByDate[date].avail += item.availeDish
         dataByDate[date].count += item.dishLimit
@@ -72,7 +74,7 @@ export default class Home extends Component {
       title: { text: '每日总订餐率' },
       tooltip: {},
       xAxis: {
-        data: Object.keys(dataByDate).sort(),
+        data: Object.keys(dataByDate),
         axisLabel: {
           inside: !true,
           interval: 0,
@@ -88,7 +90,7 @@ export default class Home extends Component {
         {
           name: '销量',
           type: 'line',
-          data: Object.values(dataByDate).map(d => d.avail / d.count)
+          data: Object.values(dataByDate).map(d => (d.count - d.avail) / d.count)
         }
       ]
     })
@@ -117,7 +119,7 @@ export default class Home extends Component {
         bottom: '120'
       },
       xAxis: {
-        data: Object.keys(dataByName).sort(),
+        data: Object.keys(dataByName),
         axisLabel: {
           inside: !true,
           interval: 0,
@@ -134,7 +136,7 @@ export default class Home extends Component {
           name: '销量',
           type: 'bar',
           data: Object.values(dataByName).map(d => ({
-            value: d.avail / d.count,
+            value: (d.count - d.avail) / d.count,
             itemStyle: {
               normal: {
                 color: '#' + Math.round(Math.random() * 10000000).toString(16)

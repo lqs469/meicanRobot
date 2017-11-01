@@ -59,7 +59,7 @@ export default class Home extends Component {
       c.width = c.height = 40
       let ctx = c.getContext('2d')
       let grd = ctx.createRadialGradient(20, 20, 0, 20, 20, 20)
-      grd.addColorStop(0, 'rgba(255, 0, 0, 0.3)')
+      grd.addColorStop(0, 'rgba(255, 0, 0, 0.7)')
       ctx.fillStyle = grd
       ctx.beginPath()
       ctx.arc(20, 20, 20, 0, 2 * Math.PI)
